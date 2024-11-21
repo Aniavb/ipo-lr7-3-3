@@ -1,5 +1,11 @@
 import json
 count = 0
+num = 0
+with open("dump.json", "r",   encoding = "utf-8") as file:
+    read_content = file.read()
+    no_json = json.loads(read_content)
+    for item in no_json:
+        num += 1
 while True:
     print("1. Вывести все записи")
     print("2. Вывести запись по полю")
@@ -13,29 +19,38 @@ while True:
     if punkt == 1:
         count += 1
         for item in no_json:
-            print("=" * 20, f"Номер записи: {item["id"]}", "=" * 20)
-            print(f"Общее название звезды: {item["name"]} \n Название созвездия: {item["constellation"]} \n Можно ли увидеть звезду без телескопа: {item["is_visible"]} \n Солнечный радиус звезды: {item["radius"]}")
+            print("=" * 20, f"Номер записи: {item['id']}", "=" * 20)
+            print(f"Общее название звезды: {item['name']} \n Название созвездия: {item['constellation']} \n Можно ли увидеть звезду без телескопа: {item['is_visible']} \n Солнечный радиус звезды: {item['radius']}")
     elif punkt == 2:
         count += 1
         record = input("Введите поле: ")
         found = False
         for item in no_json:
-            if item["id"] == record:
-                print("=" * 20, f"Номер записи: {item["id"]}", "=" * 20,)
-                print(f"Общее название звезды: {item["name"]} \n Название созвездия: {item["constellation"]} \n Можно ли увидеть звезду без телескопа: {item["is_visible"]} \n Солнечный радиус звезды: {item["radius"]}")
+            if item['id'] == record:
+                print("=" * 20, f"Номер записи: {item['id']}", "=" * 20,)
+                print(f"Общее название звезды: {item['name']} \n Название созвездия: {item['constellation']} \n Можно ли увидеть звезду без телескопа: {item['is_visible']} \n Солнечный радиус звезды: {item['radius']}")
                 found = True
                 break
         if not found:
              print("Некорректный ввод")
     elif punkt == 3:
         count +=1
+        num += 1
+        flag = True
         with open("dump.json", "w",   encoding = "utf-8") as file:
-            new = {}
-            new["id"] = input("Введите номер записи: ")
-            new["name"] = input("Введите название звезды: ")
-            new["constellation"] = input("Введите название созвездия: ")
-            new["is_visible"] = input("Можно ли увидеть звезду без телескопа (да/нет): ")
-            new["radius"] = input("Введите радиус звезды: ")
+            name = input("Введите название звезды: ")
+            constellation = input("Введите название созвездия: ")
+            is_visible = input("Можно ли увидеть звезду без телескопа (да/нет): ")
+            radius = input("Введите радиус звезды: ")
+            try:
+                radius = int(radius)
+            except:
+                flag = False
+            if(not flag):
+                print("Должно быть число")
+                break
+            else:
+                new = { 'id': num, 'name':name, 'constellation': constellation, 'is_visible': 'да' if is_visible.lower() == 'да' else 'нет', 'radius':radius}
             no_json.append(new)
             print("Запись добавлена")
             json.dump(no_json, file, indent = 4)
