@@ -26,9 +26,9 @@ while True:
         record = input("Введите поле: ")
         found = False
         for item in no_json:
-            if item['id'] == record:
-                print("=" * 20, f"Номер записи: {item['id']}", "=" * 20,)
-                print(f"Общее название звезды: {item['name']} \n Название созвездия: {item['constellation']} \n Можно ли увидеть звезду без телескопа: {item['is_visible']} \n Солнечный радиус звезды: {item['radius']}")
+            if item["id"] == record:
+                print("=" * 20, f"Номер записи: {item["id"]}", "=" * 20,)
+                print(f"Общее название звезды: {item["name"]} \n Название созвездия: {item["constellation"]} \n Можно ли увидеть звезду без телескопа: {item["is_visible"]} \n Солнечный радиус звезды: {item["radius"]}")
                 found = True
                 break
         if not found:
