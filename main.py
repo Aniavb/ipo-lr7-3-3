@@ -34,26 +34,33 @@ while True:
         if not found:
              print("Некорректный ввод")
     elif punkt == 3:
-        count +=1
-        num += 1
         flag = True
-        with open("dump.json", "w",   encoding = "utf-8") as file:
-            name = input("Введите название звезды: ")
-            constellation = input("Введите название созвездия: ")
-            is_visible = input("Можно ли увидеть звезду без телескопа (да/нет): ")
-            radius = input("Введите радиус звезды: ")
-            try:
-                radius = int(radius)
-            except:
-                flag = False
-            if(not flag):
-                print("Должно быть число")
-                break
-            else:
-                new = { 'id': num, 'name':name, 'constellation': constellation, 'is_visible': 'да' if is_visible.lower() == 'да' else 'нет', 'radius':radius}
-            no_json.append(new)
-            print("Запись добавлена")
-            json.dump(no_json, file, indent = 4)
+        name = input("Введите название звезды: ")
+        constellation = input("Введите название созвездия: ")
+        is_visible = input("Можно ли увидеть звезду без телескопа (да/нет): ")
+        radius = input("Введите радиус звезды: ")
+        try:
+            radius = int(radius)
+        except:
+            flag = False
+        if(not flag):
+            print("Значение для радиуса введено неверно.")
+        else:
+            new = {
+                'id': num,
+                'name': name,
+                'constellation': constellation,
+                'is_visible': "да" if is_visible.lower() == 'да' else "нет", 
+                'radius ': radius 
+            }
+
+            no_json.append(new) 
+            with open("dump.json", 'w', encoding='utf-8') as file: 
+                json.dump(no_json, file)
+            print("Запись добавлена.")
+        count += 1
+        num+=1
+        
     elif punkt == 4:
         count += 1
         record = input("Введите поле для удаления: ")
